@@ -6,7 +6,7 @@
 - **[API Endpoints](#api-endpoints)**<br>
 - **[Credits](#credits)**<br>
 
-## <a name='overview'></a>Overview
+## <a name='overview'></a>Overviews
 This database allows Career Coach Users to register, login and create a prison profile. Career coaches can then edit or delete their prison, as well as create, edit and delete employee profiles for their prison that they manage on the Second Chance data base. All users can view prison and employee data. Only career coaches can edit data of anykind.
 
 ## API Endpoints
