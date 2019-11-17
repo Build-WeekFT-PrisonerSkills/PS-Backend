@@ -2,12 +2,12 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 
-const authenticate = require('../auth/authenticate-middleware.JS');
+const authenticate = require('../auth/authenticate-middleware.js');
+
 
 
 const authRouter = require('../auth/auth-router.js');
-// const prisonRouter = require('../prisons/prisons-router.js')
-
+const usersRouter = require('../users/users-router.js')
 
 const server = express();
 
@@ -16,7 +16,7 @@ server.use(cors());
 server.use(express.json());
 
 server.use('/api/auth', authRouter);
+server.use('/api/users', usersRouter);
 
-server.use('/api/prison', prisonRouter);
 
 module.exports = server;
