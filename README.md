@@ -9,31 +9,31 @@
 ## <a name='overview'></a>Overviews
 This database allows Career Coach Users to register, login and create a prison profile. Career coaches can then edit or delete their prison, as well as create, edit and delete employee profiles for their prison that they manage on the Second Chance data base. All users can view prison and employee data. Only career coaches can edit data of anykind.
 
-## API Endpoints
+## ***API Endpoints***
 
-### Authentication
+### ***Employers (endpoints do NOT require login)***
 Method | Endpoint | Body (required) | Body (optional) | Notes
 | ----- | ----------------- | -------------------- | --------------------- | ------------------ |
-POST | /api/auth/register | username, password | name, email, organizations, avatarUrl, role | Creates a new user object in the database. |
-POST | /api/auth/login |  username, password | N/A | Returns username, JSON Web Token, and the user object. |
+prisons GET | /api/users/ | N/A | N/A | Returns an object of all the prisons in the database. |
+prison by ID GET | /api/users/:id | N/A | N/A | Returns a single prison profile using the ID in the req.params. |
+inmates by prison ID GET | /api/users/:id/inmates | N/A | N/A | Returns all the inmates the database by prison (using the ID in the req.params). |
+GET | /api/users/inmates/:id | N/A | N/A | Returns a single inmate profile using the ID in the req.params. |
 
-### Prisons
+### ***Authentication (for login)***
 Method | Endpoint | Body (required) | Body (optional) | Notes
 | ----- | ----------------- | -------------------- | --------------------- | ------------------ |
-GET | /api/prisons | N/A | N/A | Returns an object of all the prisons in the database. |
-GET | /api/prisons/:organizer | N/A | N/A | Returns a singular event object based on ID. |
-POST | /api/prisons | Name, ZIP, Email, Phone | City, State, Image, approved | Allows users to post brand new prisons to the database. |
+register POST | /api/auth/register | username, password | N/A | Creates a new user object in the database. Returns the user information. |
+login POST | /api/auth/login |  username, password | N/A | Returns a welcome message and the JSON Web Token. |
 
-### Prisons (admin)
+### ***Users (admin/career coach, all these endpoints require a login)***
 Method | Endpoint | Body (required) | Body (optional) | Notes
 | ----- | ----------------- | -------------------- | --------------------- | ------------------ |
-DELETE | /api/admin/:id | N/A | N/A | Allows admins to delete ANY prison. |
-PUT | /api/admin/:id | Name, ZIp, Email, Phone | City, State, Image, approved | Allows admins to edit ANY prison. |
-
-### Users (admin)
-Method | Endpoint | Body (required) | Body (optional) | Notes
-| ----- | ----------------- | -------------------- | --------------------- | ------------------ |
-GET | /api/admin/users | N/A | N/A | Allows an admin to see a list of all the users in the database. |
+add a prison POST | /api/admin/users/prison | N/A | ***prisonName, address, phone, city, state, zipcode***, all the above are strings  | Allows an admin to _add_ a prison to the database. |
+update a prison PUT | /api/admin/users/:id | Only the fields that need updating (_must send at least 1 field_)| See required  | Allows an admin to _edit_ a prison in the database. |
+delete a prison DELETE | /api/admin/users/:id | N/A | N/A | Allows an admin to _delete_ a prison from the database (using req.params). ***Warning!! All inmates MUST be deleted before deleting a prison*** |
+add an inmate POST | /api/admin/users/inmates | ***prison_id*** (as a number, no quotation marks), ***available*** (0(false) or 1(true)) | ***inmateFirstName, inmateLastName, prison_id, skillset, age, workExperience, image, available***, all the above are strings  | Allows an admin to _add_ an inmate to the database. |
+update an inmate PUT | /api/admin/users/inmates/:id | Only the fields that need updating (_must send at least 1 field_)| See required  | Allows an admin to _edit_ an inmate in the database. |
+delete an inmate DELETE | /api/admin/users/inmates/:id | N/A | N/A | Allows an admin to _delete_ an inmate from the database (using req.params). |
 
 ## Credits
 ### Project Manager
