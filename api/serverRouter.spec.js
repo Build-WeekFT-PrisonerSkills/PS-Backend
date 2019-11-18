@@ -57,3 +57,30 @@ it('should return JSON body type', async () => {
 })
 
 
+
+// PUT Inmate
+describe('Update inmates by id', function () {
+    describe('/api/users/inmates/1', function () {
+        it('should return status of 200', function () {
+
+            return request(server)
+                .put('/api/users/inmates/1')
+                .then(res => {
+
+                    expect(res.body).toEqual({ "message": "No credentials provided" });
+                })
+        })
+    })
+})
+
+it('should return JSON body type', async () => {
+
+    const res = await request(server).put('/api/users/inmates/1')
+
+
+    expect(res.type).toMatch(/json/i);
+
+
+})
+
+
