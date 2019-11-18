@@ -11,6 +11,9 @@ This database allows Career Coach Users to register, login and create a prison p
 
 ## ***API Endpoints***
 
+## ***BASE URL***
+https://prisoner-skills-bw.herokuapp.com/
+
 ### ***Employers (endpoints do NOT require login)***
 Method | Endpoint | Body (required) | Body (optional) | Notes
 | ----- | ----------------- | -------------------- | --------------------- | ------------------ |
@@ -28,12 +31,12 @@ login POST | /api/auth/login |  username, password | N/A | Returns a welcome mes
 ### ***Users (admin/career coach, all these endpoints require a login)***
 Method | Endpoint | Body (required) | Body (optional) | Notes
 | ----- | ----------------- | -------------------- | --------------------- | ------------------ |
-add a prison POST | /api/admin/users/prison | N/A | ***prisonName, address, phone, city, state, zipcode***, all the above are strings  | Allows an admin to _add_ a prison to the database. |
-update a prison PUT | /api/admin/users/:id | Only the fields that need updating (_must send at least 1 field_)| See required  | Allows an admin to _edit_ a prison in the database. |
-delete a prison DELETE | /api/admin/users/:id | N/A | N/A | Allows an admin to _delete_ a prison from the database (using req.params). ***Warning!! All inmates MUST be deleted before deleting a prison*** |
-add an inmate POST | /api/admin/users/inmates | ***prison_id*** (as a number, no quotation marks), ***available*** (0(false) or 1(true)) | ***inmateFirstName, inmateLastName, prison_id, skillset, age, workExperience, image, available***, all the above are strings  | Allows an admin to _add_ an inmate to the database. |
-update an inmate PUT | /api/admin/users/inmates/:id | Only the fields that need updating (_must send at least 1 field_)| See required  | Allows an admin to _edit_ an inmate in the database. |
-delete an inmate DELETE | /api/admin/users/inmates/:id | N/A | N/A | Allows an admin to _delete_ an inmate from the database (using req.params). |
+add a prison POST | /api/users/prison | N/A | ***prisonName, address, phone, city, state, zipcode***, all the above are strings  | Allows an admin to _add_ a prison to the database. |
+update a prison PUT | /api/users/:id | Only the fields that need updating (_must send at least 1 field_)| See required  | Allows an admin to _edit_ a prison in the database. |
+delete a prison DELETE | /api/users/:id | N/A | N/A | Allows an admin to _delete_ a prison from the database (using req.params). ***Warning!! All inmates MUST be deleted before deleting a prison*** |
+add an inmate POST | /api/users/inmates | ***prison_id*** (as a number, no quotation marks), ***available*** (0(false) or 1(true)) | ***inmateFirstName, inmateLastName, prison_id, skillset, age, workExperience, image, available***, all the above are strings  | Allows an admin to _add_ an inmate to the database. |
+update an inmate PUT | /api/users/inmates/:id | Only the fields that need updating (_must send at least 1 field_)| See required  | Allows an admin to _edit_ an inmate in the database. |
+delete an inmate DELETE | /api/users/inmates/:id | N/A | N/A | Allows an admin to _delete_ an inmate from the database (using req.params). |
 
 ## Credits
 ### Project Manager
