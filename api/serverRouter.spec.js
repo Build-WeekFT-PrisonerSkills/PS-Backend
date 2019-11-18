@@ -109,4 +109,34 @@ it('should return JSON body type', async () => {
 
 
 })
+ //POST inmate
+describe('POST inmate()', function () {
 
+    beforeEach(async () => {
+        await db('users').truncate();
+    })
+
+    it('should respond with message of no credentials provided', async function () {
+        await request(server)
+            .post("/api/users/inmates")
+            .send({inmateFirstName: "Jeep"})
+            .then(res => {
+                expect(res.body).toEqual({ "message": "No credentials provided" });
+            })
+    });
+})
+
+describe('POST register', function () {
+    describe('post /', function () {
+        it('should return json formated response', function () {
+
+            return request(server)
+                .post('/api/users/inmates')
+                .send({ inmateFirstName: "Jeep"})
+                .then(res => {
+
+                    expect(res.type).toMatch(/json/i);
+                })
+        })
+    })
+})
