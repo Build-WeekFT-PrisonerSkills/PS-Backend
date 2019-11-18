@@ -20,17 +20,17 @@ router.get('/', (req, res) => {
 
 })
 
-//ADD Inmate to prison with matching id
-// router.post('/:id/person', restricted, (req, res) => {
-//     const newInmate = req.body;
-//     const { id } = req.params;
-//     PrisonSkillsDb
-//         .addperson(newInmate, id)
-//         .then(inmate => {
-//             res.status(201).json(inmate)
-//         })
+// ADD Inmate to prison with matching id
+router.post('/:id/inmates', restricted, (req, res) => {
+    const newInmate = req.body;
+    const { id } = req.params;
+    PrisonSkillsDb
+        .addperson(newInmate, id)
+        .then(inmate => {
+            res.status(201).json(inmate)
+        })
 
-// })
+})
 
 // POST inmate
 router.post('/inmates', restricted, (req, res) => {
@@ -74,6 +74,7 @@ router.get('/:id', (req, res) => {
     PrisonSkillsDb
         .getallById(id)
         .then(prisons => {
+            ! prisons ? res.status(400).json({message: "Prison does not exist"}) :
             res.status(200).json(prisons)
         })
         .catch(error => {
@@ -89,7 +90,9 @@ router.get('/inmates/:id', (req, res) => {
     const { id } = req.params;
     PrisonSkillsDb
         .findById(id)
+        
         .then(inmates => {
+            ! inmates ? res.status(400).json({message: "Inmate does not exist"}) :
             res.status(200).json(inmates)
         })
         .catch(error => {
@@ -127,6 +130,7 @@ router.delete('/inmates/:id', restricted, (req, res) => {
     PrisonSkillsDb.remove(id)
 
         .then(inmate => {
+            ! inmate ? res.status(400).json({message: "Inmate does not exist"}) :
 
             res.status(200).json({ message: 'Deleted' });
 
@@ -146,6 +150,7 @@ router.delete('/:id', restricted, (req, res) => {
     PrisonSkillsDb.gone(id)
 
         .then(prison => {
+            ! prison ? res.status(400).json({message: "Prison does not exist"}) :
 
             res.status(200).json({ message: 'Deleted' });
 
@@ -166,7 +171,7 @@ router.put('/inmates/:id', restricted, (req, res) => {
     PrisonSkillsDb.update(id, body)
 
         .then(inmate => {
-
+            ! inmate ? res.status(400).json({message: "Prison does not exist"}) :
             res.status(200).json(inmate);
         })
         .catch(err => {
@@ -185,6 +190,7 @@ router.put('/:id', restricted, (req, res) => {
     PrisonSkillsDb.updateprison(id, body)
 
         .then(prison => {
+            ! prison ? res.status(400).json({message: "Inmate does not exist"}) :
 
             res.status(200).json(prison);
         })

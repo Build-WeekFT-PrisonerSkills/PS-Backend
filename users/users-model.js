@@ -38,11 +38,6 @@ function getallById(id) {
 }
 
 
-//GET ALL PRISONS
-function getall() {
-    return db("prisons").select("id", "prisonName")
-}
-
 //get all inmates
 
 function getallinmates(prison_id) {
