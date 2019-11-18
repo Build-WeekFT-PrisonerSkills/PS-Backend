@@ -30,3 +30,30 @@ it('should return JSON body type', async () => {
 
 })
 
+
+// GET Inmates By ID 
+describe('Get inmates by id', function () {
+    describe('/api/users/inmates/1', function () {
+        it('should return status of 200', function () {
+
+            return request(server)
+                .get('/api/users/inmates/1')
+                .then(res => {
+
+                    expect(res.status).toBe(200)
+                })
+        })
+    })
+})
+
+it('should return JSON body type', async () => {
+
+    const res = await request(server).get('/api/users/inmates/1')
+
+
+    expect(res.type).toMatch(/json/i);
+
+
+})
+
+
