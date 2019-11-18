@@ -140,3 +140,35 @@ describe('POST register', function () {
         })
     })
 })
+
+
+describe('POST register()', function () {
+
+    beforeEach(async () => {
+        await db('users').truncate();
+    })
+
+    it('should respond with status 200', async function () {
+        await request(server)
+            .post("/api/auth/register")
+            .send({ email: "new", password: "pass" })
+            .then(res => {
+                expect(res.status).toBe(201)
+            })
+    });
+})
+
+describe('POST register', function () {
+    describe('post /', function () {
+        it('should return json formated response', function () {
+
+            return request(server)
+                .post('/api/auth/register')
+                .send({ email: "new", password: "pass" })
+                .then(res => {
+
+                    expect(res.type).toMatch(/json/i);
+                })
+        })
+    })
+})

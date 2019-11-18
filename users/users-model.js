@@ -4,7 +4,7 @@ const db = require('../database/dbConfig.js');
 module.exports = {
     findPrisonById,
     addperson,
-    // getall,
+    getall,
     findById,
     insert,
     getallinmates,
@@ -18,9 +18,9 @@ module.exports = {
 };
 
 //GET ALL PRISONS
-// function getall() {
-//     return db("prisons").select( "id","prisonName",)
-// }
+function getall() {
+    return db("prisons").select( "id","prisonName",)
+}
 
 //find prison by id
 function findPrisonById(id) {
@@ -37,11 +37,6 @@ function getallById(id) {
 
 }
 
-
-//GET ALL PRISONS
-function getall() {
-    return db("prisons").select("id", "prisonName")
-}
 
 //get all inmates
 
