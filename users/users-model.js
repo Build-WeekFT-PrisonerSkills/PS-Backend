@@ -75,7 +75,7 @@ function insert(person) {
 
 function insertPrison(prison) {
     return db('prisons')
-        .insertPrison(prison)
+        .insert(prison)
 
 }
 
