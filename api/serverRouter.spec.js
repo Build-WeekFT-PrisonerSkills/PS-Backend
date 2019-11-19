@@ -5,112 +5,179 @@ const server = require('../api/server.js')
 const db = require("../database/dbConfig.js")
 
 
-// GET All Inmates
-describe('Get all Inmates', function () {
-    describe('/api/users/inmates', function () {
-        it('should return status of 200', function () {
-
-            return request(server)
-                .get('/api/users/inmates')
+// Endpoint test 1 get all prisons
+describe('ENDPOINT TEST 1.1 - GET / all prisons res.type', function () {
+    describe('GET / all prisons res.type', function () {
+        it('should respond with res.status of json', async function () {
+            await request(server)
+                .get('/api/users/')
                 .then(res => {
+                    expect(res.type).toMatch(/json/i)
+                })
+        });
+    })
+})
 
+// Endpoint test 2 get prison by :id
+describe('ENDPOINT TEST 2.1 -GET /:id get prison by id', function () {
+    describe('GET /:id get a status code of 200', function () {
+        it('should return a status of 200', async function () {
+            await request(server)
+                .get('/api/users/1')
+                .then(res => {
+                    expect(res.status).toBe(400)
+                })
+        })
+    })
+})
+
+// Endpoint test 3
+describe('ENDPOINT TEST 3.1 -GET /:id/inmates get all inmates by id', function () {
+    describe('GET /:id get a status code of 200', function () {
+        it('should return a status of 200', async function () {
+            await request(server)
+                .get('/api/users/1/inmates')
+                .then(res => {
                     expect(res.status).toBe(200)
                 })
         })
     })
 })
 
-it('should return JSON body type', async () => {
-
-    const res = await request(server).get('/api/users/inmates')
-
-
-    expect(res.type).toMatch(/json/i);
-
-
-})
-
-
-// GET Inmates By ID 
-describe('Get inmates by id', function () {
-    describe('/api/users/inmates/1', function () {
-        it('should return status of 200', function () {
-
-            return request(server)
+// Endpoint test 4
+describe('ENDPOINT TEST 4.1 - GET /inmates/:id get an inmates by id', function () {
+    describe('GET /inmates/:id return a status code of 500', function () {
+        it('should return a status of 500', async function () {
+            await request(server)
                 .get('/api/users/inmates/1')
                 .then(res => {
-
-                    expect(res.status).toBe(200)
+                    expect(res.status).toBe(400)
                 })
         })
+
+        it('ENDPOINT TEST 4.2 -should respond with message of Inmate does not exist', async function () {
+            await request(server)
+                .get("/api/users/inmates/1")
+                .send({inmateFirstName: "Jeep"})
+                .then(res => {
+                    expect(res.body).toEqual({ "message": "Inmate does not exist" });
+                })
+        });
     })
 })
 
-it('should return JSON body type', async () => {
+// Endpoint test 5
+describe('ENDPOINT TEST 5.1 - POST register()', function () {
 
-    const res = await request(server).get('/api/users/inmates/1')
+    beforeEach(async () => {
+        await db('users').truncate();
+    })
 
-
-    expect(res.type).toMatch(/json/i);
-
+    it('should respond with status 200', async function () {
+        await request(server)
+            .post("/api/auth/register")
+            .send({ email: "new", password: "pass" })
+            .then(res => {
+                expect(res.status).toBe(201)
+            })
+    });
 
 })
 
-
-
-// PUT Inmate
-describe('Update inmates by id', function () {
-    describe('/api/users/inmates/1', function () {
-        it('should return message: No credentials provided', function () {
+describe('ENDPOINT TEST 5.2 -POST register', function () {
+    describe('post /', function () {
+        it('should return json formated response', function () {
 
             return request(server)
-                .put('/api/users/inmates/1')
+                .post('/api/auth/register')
+                .send({ email: "new", password: "pass" })
                 .then(res => {
 
-                    expect(res.body).toEqual({ "message": "No credentials provided" });
+                    expect(res.type).toMatch(/json/i);
                 })
         })
     })
 })
 
-it('should return JSON body type', async () => {
-
-    const res = await request(server).put('/api/users/inmates/1')
-
-
-    expect(res.type).toMatch(/json/i);
-
-
-})
-
-
-
-// Delete Inmate
-describe('Delete inmates by id', function () {
-    describe('/api/users/inmates/1', function () {
-        it('should return status of 200', function () {
+// Endpoint test 6
+describe('ENDPOINT TEST 6.1 - POST login', function () {
+    describe('post /login', function () {
+        it('should return json formated response', function () {
 
             return request(server)
-                .delete('/api/users/inmates/1')
+                .post('/api/auth/login')
+                .send({ email: "new", password: "past" })
                 .then(res => {
 
-                    expect(res.body).toEqual({ "message": "No credentials provided" });
+                    expect(res.body).toEqual({ "message": "Invalid Credentials" });
                 })
         })
     })
 })
 
-it('should return JSON body type', async () => {
+// Endpoint test 7
+describe('ENDPOINT TEST 7.1 - POST prison', function () {
+    describe('post /prison', function () {
+        it('should return json formated response', function () {
 
-    const res = await request(server).delete('/api/users/inmates/1')
+            return request(server)
+                .post('/api/users/prison')
+                .send({ prisonName: "Lorton Jail"})
+                .then(res => {
 
-
-    expect(res.type).toMatch(/json/i);
-
-
+                    expect(res.type).toMatch(/json/i);
+                })
+        })
+    })
 })
- //POST inmate
-describe('POST inmate()', function () {
+
+// Endpoint test 8
+describe('ENDPOINT TEST 8.1 - PUT prison', function () {
+    describe('put /users/:id', function () {
+        it('should return status 400', function () {
+
+            return request(server)
+                .put('/api/users/1')
+                .then(res => {
+
+                    expect(res.status).toBe(400);
+                })
+        })
+    })
+})
+
+// Endpoint test 9
+describe('ENDPOINT TEST 9.1 - DELETE prison', function () {
+    describe('delete /:id', function () {
+        it('should return json formated response', function () {
+
+            return request(server)
+                .delete('/api/users/1')
+                .then(res => {
+
+                    expect(res.status).toBe(400);
+                })
+        })
+    })
+})
+
+// Endpoint test 10 POST inmate
+describe('ENDPOINT TEST 10.1 - POST / inmates', function () {
+    describe('post /inmates', function () {
+        it('should return json formated response', function () {
+
+            return request(server)
+                .post('/api/users/inmates')
+                .send({ inmateFirstName: "Jeep"})
+                .then(res => {
+
+                    expect(res.type).toMatch(/json/i);
+                })
+        })
+    })
+})
+
+ describe('ENDPOINT TEST 10.2 - POST /inmates', function () {
 
     beforeEach(async () => {
         await db('users').truncate();
@@ -126,49 +193,65 @@ describe('POST inmate()', function () {
     });
 })
 
-describe('POST register', function () {
-    describe('post /', function () {
-        it('should return json formated response', function () {
+// Endpoint test 11 PUT Inmate
+describe('ENDPOINT TEST 11.1 - Update inmates by id', function () {
+    describe('/api/users/inmates/1', function () {
+        it('should return message: No credentials provided', function () {
 
             return request(server)
-                .post('/api/users/inmates')
-                .send({ inmateFirstName: "Jeep"})
+                .put('/api/users/inmates/1')
                 .then(res => {
 
-                    expect(res.type).toMatch(/json/i);
+                    expect(res.body).toEqual({ "message": "No credentials provided" });
                 })
         })
     })
 })
 
+it('ENDPOINT TEST 11.2 - should return JSON body type', async () => {
 
-describe('POST register()', function () {
+    const res = await request(server).put('/api/users/inmates/1')
 
-    beforeEach(async () => {
-        await db('users').truncate();
-    })
+    expect(res.type).toMatch(/json/i);
 
-    it('should respond with status 200', async function () {
-        await request(server)
-            .post("/api/auth/register")
-            .send({ email: "new", password: "pass" })
-            .then(res => {
-                expect(res.status).toBe(201)
-            })
-    });
 })
 
-describe('POST register', function () {
-    describe('post /', function () {
-        it('should return json formated response', function () {
+// Endpoint test 12 DELETE Inmate
+describe('ENDPOINT TEST 12.1 - Delete inmates by id', function () {
+    describe('/api/users/inmates/1', function () {
+        it('should return status of 200', function () {
 
             return request(server)
-                .post('/api/auth/register')
-                .send({ email: "new", password: "pass" })
+                .delete('/api/users/inmates/1')
                 .then(res => {
 
-                    expect(res.type).toMatch(/json/i);
+                    expect(res.body).toEqual({ "message": "No credentials provided" });
                 })
         })
     })
 })
+
+it('ENDPOINT TEST 12.2 - should return JSON body type', async () => {
+
+    const res = await request(server).delete('/api/users/inmates/1')
+
+    expect(res.type).toMatch(/json/i);
+
+})
+
+
+
+// describe('POST /prison returns a status 200', function () {
+//     describe('POST /prison returns a status 200', function () {
+//         it('should respond with a status 200', async function () {
+//             await request(server)
+//                 .post('/api/users/prison')
+//                 .send({ prisonName: "prisonName", address: "acmeCity", phone: "123456789", city: "AcmeCity", state: "VA", zipcode: "22222"})
+//                 .then(res => {
+//                     expect(res.status).toBe(500);
+//                 })
+//         });
+//     })
+// })
+
+
