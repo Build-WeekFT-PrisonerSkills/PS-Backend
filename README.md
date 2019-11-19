@@ -17,26 +17,26 @@ https://prisoner-skills-bw.herokuapp.com/
 ### ***Employers (endpoints do NOT require login)***
 Method | Endpoint | Body (required) | Body (optional) | Notes
 | ----- | ----------------- | -------------------- | --------------------- | ------------------ |
-prisons GET | /api/users/ | N/A | N/A | Returns an object of all the prisons in the database. |
-prison by ID GET | /api/users/:id | N/A | N/A | Returns a single prison profile using the ID in the req.params. |
-inmates by prison ID GET | /api/users/:id/inmates | N/A | N/A | Returns all the inmates the database by prison (using the ID in the req.params). |
-GET | /api/users/inmates/:id | N/A | N/A | Returns a single inmate profile using the ID in the req.params. |
+1. prisons GET | /api/users/ | N/A | N/A | Returns an object of all the prisons in the database. |
+2. prison by ID GET | /api/users/:id | N/A | N/A | Returns a single prison profile using the ID in the req.params. |
+3. inmates by prison ID GET | /api/users/:id/inmates | N/A | N/A | Returns all the inmates the database by prison (using the ID in the req.params). |
+4. inmates by ID GET | /api/users/inmates/:id | N/A | N/A | Returns a single inmate profile using the ID in the req.params. |
 
 ### ***Authentication (for login)***
 Method | Endpoint | Body (required) | Body (optional) | Notes
 | ----- | ----------------- | -------------------- | --------------------- | ------------------ |
-register POST | /api/auth/register | username, password | N/A | Creates a new user object in the database. Returns the user information. |
-login POST | /api/auth/login |  username, password | N/A | Returns a welcome message and the JSON Web Token. |
+5. register POST | /api/auth/register | username, password | N/A | Creates a new user object in the database. Returns the user information. |
+6. login POST | /api/auth/login |  username, password | N/A | Returns a welcome message and the JSON Web Token. |
 
 ### ***Users (admin/career coach, all these endpoints require a login)***
 Method | Endpoint | Body (required) | Body (optional) | Notes
 | ----- | ----------------- | -------------------- | --------------------- | ------------------ |
-add a prison POST | /api/users/prison | N/A | ***prisonName, address, phone, city, state, zipcode***, all the above are strings  | Allows an admin to _add_ a prison to the database. |
-update a prison PUT | /api/users/:id | Only the fields that need updating (_must send at least 1 field_)| See required  | Allows an admin to _edit_ a prison in the database. |
-delete a prison DELETE | /api/users/:id | N/A | N/A | Allows an admin to _delete_ a prison from the database (using req.params). ***Warning!! All inmates MUST be deleted before deleting a prison*** |
-add an inmate POST | /api/users/inmates | ***prison_id*** (as a number, no quotation marks), ***available*** (0(false) or 1(true)) | ***inmateFirstName, inmateLastName, prison_id, skillset, age, workExperience, image, available***, all the above are strings  | Allows an admin to _add_ an inmate to the database. |
-update an inmate PUT | /api/users/inmates/:id | Only the fields that need updating (_must send at least 1 field_)| See required  | Allows an admin to _edit_ an inmate in the database. |
-delete an inmate DELETE | /api/users/inmates/:id | N/A | N/A | Allows an admin to _delete_ an inmate from the database (using req.params). |
+7. add a prison POST | /api/users/prison | N/A | ***prisonName, address, phone, city, state, zipcode***, all the above are strings  | Allows an admin to _add_ a prison to the database. |
+8. update a prison PUT | /api/users/:id | Only the fields that need updating (_must send at least 1 field_)| See required  | Allows an admin to _edit_ a prison in the database. |
+9. delete a prison DELETE | /api/users/:id | N/A | N/A | Allows an admin to _delete_ a prison from the database (using req.params). ***Warning!! All inmates MUST be deleted before deleting a prison*** |
+10. add an inmate POST | /api/users/inmates | ***prison_id*** (as a number, no quotation marks), ***available*** (0(false) or 1(true)) | ***inmateFirstName, inmateLastName, prison_id, skillset, age, workExperience, image, available***, all the above are strings  | Allows an admin to _add_ an inmate to the database. |
+11. update an inmate PUT | /api/users/inmates/:id | Only the fields that need updating (_must send at least 1 field_)| See required  | Allows an admin to _edit_ an inmate in the database. |
+12. delete an inmate DELETE | /api/users/inmates/:id | N/A | N/A | Allows an admin to _delete_ an inmate from the database (using req.params). |
 
 ## Credits
 ### Project Manager

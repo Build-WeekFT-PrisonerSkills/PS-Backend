@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const Users = require('./auth-model.js');
 
 
-
+// Endpoint 5 /register
 router.post('/register', (req, res) => {
   let user = req.body;
 
@@ -29,6 +29,7 @@ router.post('/register', (req, res) => {
   
 });
 
+// Endpoint 6 /login
 router.post('/login', (req, res) => {
   let { email, password } = req.body;
 
