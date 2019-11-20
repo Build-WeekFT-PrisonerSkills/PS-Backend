@@ -15,8 +15,8 @@ module.exports = {
     insertPrison,
     getallById,
     getPrisonsByUser,
-    getallusers,
-    addprisonwid
+    addprisonwid,
+    getalltheusers
 
 };
 
@@ -24,6 +24,9 @@ module.exports = {
 function getall() {
     return db("prisons")
 }
+
+
+
 
 //find prison by id
 function findPrisonById(id) {
@@ -138,11 +141,12 @@ function gone(id) {
         .del();
 }
 
+//Get all users
 
-//GET ALL USERS
-function getallusers() {
+function getalltheusers () {
     return db("users")
 }
+
 
 //(GET all prisons by user ID)
 function getPrisonsByUser(user_id) {

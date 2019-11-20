@@ -19,6 +19,18 @@ router.get('/', (req, res) => {
         })
 })
 
+// Endpoi '/api/users/' (GET all users)
+router.get('/userlist', (req, res) => {
+    PrisonSkillsDb
+        .getalltheusers()
+        .then(prisons => {
+            res.status(200).json(prisons)
+        })
+        .catch(error => {
+            res.status(500).json(error)
+        })
+})
+
 // Endpoint 2 '/api/users/:id' (GET prison by id)
 router.get('/:id',(req, res) => {
 
@@ -160,18 +172,9 @@ router.delete('/inmates/:id', restricted, (req, res) => {
         })
 })
 
-//Endpoint 13
-//(GET all USERS)
-router.get('/userlist', (req, res) => {
-    PrisonSkillsDb
-        .getallusers()
-        .then(users => {
-            res.status(200).json(users)
-        })
-        .catch(error => {
-            res.status(500).json(error)
-        })
-})
+
+
+
 
 // 14 Endpoint (GET all prisons by user ID)
 router.get('/:id/prisons', (req, res) => {
