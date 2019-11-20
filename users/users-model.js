@@ -38,6 +38,11 @@ function getallById(id) {
 }
 
 
+//GET ALL PRISONS
+function getall() {
+    return db("prisons").select("id", "prisonName")
+}
+
 //get all inmates
 
 function getallinmates(prison_id) {
@@ -62,7 +67,7 @@ function findById(id) {
 
 function insert(person) {
     return db('inmates')
-        .insert(person)
+        .insert(person, 'id')
 
 }
 
@@ -70,7 +75,7 @@ function insert(person) {
 
 function insertPrison(prison) {
     return db('prisons')
-        .insert(prison)
+        .insert(prison, 'id')
 
 }
 
