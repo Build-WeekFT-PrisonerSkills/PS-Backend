@@ -20,13 +20,13 @@ router.get('/', (req, res) => {
 })
 
 // Endpoint 2 '/api/users/:id' (GET prison by id)
-router.get('/:id', (req, res) => {
+router.get('/:id', ValidatePrison,(req, res) => {
 
     const { id } = req.params;
     PrisonSkillsDb
         .getallById(id)
         .then(prisons => {
-            ! prisons ? res.status(400).json({message: "Prison does not exist"}) :
+        
             res.status(200).json(prisons)
         })
         .catch(error => {
@@ -176,6 +176,24 @@ router.delete('/inmates/:id', restricted, (req, res) => {
 // })
 
 
+//Middleware
+
+function ValidatePrison(req, res, next) {
+    const { id } = req.params;
+    PrisonSkillsDb.getallById(id)
+       
+
+    .then(prisons => {
+        if ( ! prisons) {
+            res.status(400).json({message: "Prison does not exist"}) 
+        } else {
+            next()
+        }
+    })
+
+        
+
+};
 
 
 
