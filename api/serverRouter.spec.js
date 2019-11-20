@@ -112,6 +112,17 @@ describe('ENDPOINT TEST 6.1 - POST login', function () {
                     expect(res.body).toEqual({ "message": "Invalid Credentials" });
                 })
         })
+
+        it('should return status 200', function () {
+
+            return request(server)
+                .post('/api/auth/login')
+                .send({ email: "new", password: "pass" })
+                .then(res => {
+
+                    expect(res.status).toBe(200);
+                })
+        })
     })
 })
 
