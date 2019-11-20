@@ -22,6 +22,14 @@ exports.up = function (knex) {
             tbl.string('state', 128)
             tbl.string('zipcode', 128)
 
+            tbl.integer("user_id")
+            .unsigned()
+            .references("id")
+            .inTable("users")
+            .onDelete("RESTRICT")
+            .onUpdate("CASCADE")
+
+
         })
 
         .createTable("inmates", tbl => {

@@ -20,7 +20,7 @@ router.get('/', (req, res) => {
 })
 
 // Endpoint 2 '/api/users/:id' (GET prison by id)
-router.get('/:id', ValidatePrison,(req, res) => {
+router.get('/:id',(req, res) => {
 
     const { id } = req.params;
     PrisonSkillsDb
@@ -160,7 +160,48 @@ router.delete('/inmates/:id', restricted, (req, res) => {
         })
 })
 
+//Endpoint 13
+//(GET all USERS)
+router.get('/userlist', (req, res) => {
+    PrisonSkillsDb
+        .getallusers()
+        .then(users => {
+            res.status(200).json(users)
+        })
+        .catch(error => {
+            res.status(500).json(error)
+        })
+})
 
+// 14 Endpoint (GET all prisons by user ID)
+router.get('/:id/prisons', (req, res) => {
+    const {id} = req.params;
+    PrisonSkillsDb
+        .getPrisonsByUser(id)
+        .then(user => {
+            res.status(200).json(user)
+        })
+        .catch(error => {
+            res.status(500).json(error)
+        })
+})
+
+
+
+
+
+
+// Endpoint 15 ADD prison to user with matching id
+router.post('/:id/prisons', restricted, (req, res) => {
+    const newPrison = req.body;
+    const { id } = req.params;
+    PrisonSkillsDb
+        .addprisonwid(newPrison, id)
+        .then(prison => {
+            res.status(201).json(prison)
+        })
+
+})
 
 
 // ADD Inmate to prison with matching id
@@ -178,22 +219,26 @@ router.delete('/inmates/:id', restricted, (req, res) => {
 
 //Middleware
 
-function ValidatePrison(req, res, next) {
-    const { id } = req.params;
-    PrisonSkillsDb.getallById(id)
+// function ValidatePrison(req, res, next) {
+//     const { id } = req.params;
+//     PrisonSkillsDb.getallById(id)
        
 
-    .then(prisons => {
-        if ( ! prisons) {
-            res.status(400).json({message: "Prison does not exist"}) 
-        } else {
-            next()
-        }
-    })
+//     .then(prisons => {
+//         if ( ! prisons) {
+//             res.status(400).json({message: "Prison does not exist"}) 
+//         } else {
+//             next()
+//         }
+//     })
 
         
 
-};
+// };
+
+
+
+/////////////////////////
 
 
 

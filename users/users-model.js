@@ -14,6 +14,9 @@ module.exports = {
     gone,
     insertPrison,
     getallById,
+    getPrisonsByUser,
+    getallusers,
+    addprisonwid
 
 };
 
@@ -133,4 +136,37 @@ function gone(id) {
     return db('prisons')
         .where('id', id)
         .del();
+}
+
+
+//GET ALL USERS
+function getallusers() {
+    return db("users")
+}
+
+//(GET all prisons by user ID)
+function getPrisonsByUser(user_id) {
+
+    return db("prisons")
+    .where({user_id})
+}
+
+
+//add an prison with id same 
+
+
+function addprisonwid(prison, user_id) {
+    return db('prisons')
+        .insert({ user_id, ...prison }, 'id')
+        .then(([id]) => {
+            return findByUserId(id)
+        })
+
+}
+
+//FIND USER BY ID
+function findByUserId(id) {
+    return db("users")
+        .where("id", id)
+        .first();
 }
