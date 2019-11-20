@@ -19,29 +19,29 @@ module.exports = {
 
 //GET ALL PRISONS
 function getall() {
-    return db("prisons").select( "id","prisonName",)
+    return db("prisons")
 }
 
 //find prison by id
 function findPrisonById(id) {
     return db('prisons')
         .where({ id })
-        .select('id', 'email', 'name')
+        .select("*")
         .first()
 }
 
 
 //GET PRISONS BY ID
 function getallById(id) {
-    return db("prisons").where("id", id).select("prisonName","city").first();
+    return db("prisons").where("id", id).select("*").first();
 
 }
 
 
-//GET ALL PRISONS
-function getall() {
-    return db("prisons").select("id", "prisonName")
-}
+// //GET ALL PRISONS
+// function getall() {
+//     return db("prisons")
+// }
 
 //get all inmates
 
