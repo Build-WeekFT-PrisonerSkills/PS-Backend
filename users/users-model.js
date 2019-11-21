@@ -14,34 +14,40 @@ module.exports = {
     gone,
     insertPrison,
     getallById,
+    getPrisonsByUser,
+    addprisonwid,
+    getalltheusers
 
 };
 
 //GET ALL PRISONS
 function getall() {
-    return db("prisons").select( "id","prisonName",)
+    return db("prisons")
 }
+
+
+
 
 //find prison by id
 function findPrisonById(id) {
     return db('prisons')
         .where({ id })
-        .select('id', 'email', 'name')
+        .select("*")
         .first()
 }
 
 
 //GET PRISONS BY ID
 function getallById(id) {
-    return db("prisons").where("id", id).select("prisonName","city").first();
+    return db("prisons").where("id", id).select("*").first();
 
 }
 
 
-//GET ALL PRISONS
-function getall() {
-    return db("prisons").select("id", "prisonName")
-}
+// //GET ALL PRISONS
+// function getall() {
+//     return db("prisons")
+// }
 
 //get all inmates
 
@@ -133,4 +139,38 @@ function gone(id) {
     return db('prisons')
         .where('id', id)
         .del();
+}
+
+//Get all users
+
+function getalltheusers () {
+    return db("users")
+}
+
+
+//(GET all prisons by user ID)
+function getPrisonsByUser(user_id) {
+
+    return db("prisons")
+    .where({user_id})
+}
+
+
+//add an prison with id same 
+
+
+function addprisonwid(prison, user_id) {
+    return db('prisons')
+        .insert({ user_id, ...prison }, 'id')
+        .then(([id]) => {
+            return findByUserId(id)
+        })
+
+}
+
+//FIND USER BY ID
+function findByUserId(id) {
+    return db("users")
+        .where("id", id)
+        .first();
 }
