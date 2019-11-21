@@ -207,17 +207,22 @@ router.post('/:id/prisons', restricted, (req, res) => {
 })
 
 
-// ADD Inmate to prison with matching id
-// router.post('/:id/inmates', restricted, (req, res) => {
-//     const newInmate = req.body;
-//     const { id } = req.params;
-//     PrisonSkillsDb
-//         .addperson(newInmate, id)
-//         .then(inmate => {
-//             res.status(201).json(inmate)
-//         })
+// Endpoint 16 '/api/users/:id/userdelete' (DELETE USER)
+router.delete('/:id/userdelete', restricted, (req, res) => {
+    const id = req.params.id;
+    PrisonSkillsDb.goneuser(id)
 
-// })
+        .then(prison => {
+            
+
+            res.status(200).json({ message: 'Deleted' });
+        })
+        .catch(err => {
+            console.log('error', err);
+            res.status(404).json({ error: "The user could not be removed" })
+        })
+})
+
 
 
 //Middleware

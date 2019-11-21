@@ -16,7 +16,8 @@ module.exports = {
     getallById,
     getPrisonsByUser,
     addprisonwid,
-    getalltheusers
+    getalltheusers,
+    goneuser
 
 };
 
@@ -173,4 +174,12 @@ function findByUserId(id) {
     return db("users")
         .where("id", id)
         .first();
+}
+
+//remove user
+
+function goneuser(id) {
+    return db('users')
+        .where('id', id)
+        .del();
 }
